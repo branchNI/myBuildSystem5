@@ -41,8 +41,6 @@ def call(lvProjectPath, lvBuildSpecName, lvVersion, lvBitness) {
 		  bat 'mkdir DIFFDIR'
         }
 		
-		/*
-		
 		echo 'Building build spec...'
 		
 		stage('Build project') {
@@ -70,11 +68,7 @@ def call(lvProjectPath, lvBuildSpecName, lvVersion, lvBitness) {
 				}
 		}
 		
-		*/
-		
-		withCredentials([string(credentialsId: 'github-access-token', variable: 'ACCESS_TOKEN')]) {
-			echo "My access token: ${ACCESS_TOKEN}"
-			echo ACCESS_TOKEN
+		withCredentials([string(credentialsId: 'github-access-token', variable: 'accessToken')]) {
 			
 			echo 'Running diff...'
 		
@@ -84,7 +78,7 @@ def call(lvProjectPath, lvBuildSpecName, lvVersion, lvBitness) {
 					
 					try {
 					timeout(time: 60, unit: 'MINUTES') {
-						lvDiff(lvVersion, lvBitness, ACCESS_TOKEN)
+						lvDiff(lvVersion, lvBitness, accessToken)
 						echo 'Diff Succeeded!'
 					}
 					} catch (err) {
