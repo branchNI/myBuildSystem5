@@ -6,9 +6,8 @@ def call(lvVersion, lvBitness, accessToken) {
 	def repo = getComponentParts()['repo']
 
 	echo 'Running LabVIEW diff build between origin/master and this commit'
-	echo "This is my access token: ${accessToken}"
 
 	bat "python -u \"${stepsDir}\\labview_diff.py\" \"${operationsDir}\\\\\" \"${diffDir}\\\\\" ${lvVersion} ${lvBitness} --target=origin/master"
     
-	bat "python -u \"${stepsDir}\\github_commenter.py\" --token=${accessToken} --pic-dir=\"${diffDir}\" --pull-req=\"${env.CHANGE_ID}\" --info=\"${ORG_NAME}/${repo}/${env.CHANGE_ID}\" --pic-repo=\"${ORG_NAME}/${PIC_REPO}\""
+	bat "python -u \"${stepsDir}\\github_commenter.py\" --token="${accessToken}" --pic-dir=\"${diffDir}\" --pull-req=\"${env.CHANGE_ID}\" --info=\"${ORG_NAME}/${repo}/${env.CHANGE_ID}\" --pic-repo=\"${ORG_NAME}/${PIC_REPO}\""
 }

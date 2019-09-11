@@ -80,7 +80,7 @@ def call(lvProjectPath, lvBuildSpecName, lvVersion, lvBitness) {
 			
 				accessToken = credentials('github-access-token')
 				
-				echo 'access token 1: ${accessToken}'
+				echo "access token 1: ${accessToken}"
 				
 				try {
 				timeout(time: 60, unit: 'MINUTES') {
