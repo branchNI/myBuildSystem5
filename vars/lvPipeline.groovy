@@ -75,24 +75,22 @@ def call(lvProjectPath, lvBuildSpecName, lvVersion, lvBitness) {
 		withCredentials([string(credentialsId: 'github-access-token', variable: 'ACCESS_TOKEN')]) {
 			echo "My access token: ${ACCESS_TOKEN}"
 			echo ACCESS_TOKEN
-		}
-
-		echo 'Running diff...'
-		
-		// If this change is a pull request, diff the VIs.
-		if (env.CHANGE_ID) {
-			stage ('Diff VIs'){
 			
-				accessToken = credentials('github-access-token')
-				
-				try {
-				timeout(time: 60, unit: 'MINUTES') {
-					lvDiff(lvVersion, lvBitness, accessToken)
-					echo 'Diff Succeeded!'
-				}
-				} catch (err) {
-					currentBuild.result = "SUCCESS"
-					echo "Diff Failed: ${err}"
+			echo 'Running diff...'
+		
+			// If this change is a pull request, diff the VIs.
+			if (env.CHANGE_ID) {
+				stage ('Diff VIs'){
+					
+					try {
+					timeout(time: 60, unit: 'MINUTES') {
+						lvDiff(lvVersion, lvBitness, ACCESS_TOKEN)
+						echo 'Diff Succeeded!'
+					}
+					} catch (err) {
+						currentBuild.result = "SUCCESS"
+						echo "Diff Failed: ${err}"
+					}
 				}
 			}
 		}
