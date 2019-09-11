@@ -71,6 +71,11 @@ def call(lvProjectPath, lvBuildSpecName, lvVersion, lvBitness) {
 		}
 		
 		*/
+		
+		withCredentials([string(credentialsId: 'github-access-token', variable: 'ACCESS_TOKEN')]) {
+			echo "My access token: ${ACCESS_TOKEN}"
+			echo ACCESS_TOKEN
+		}
 
 		echo 'Running diff...'
 		
