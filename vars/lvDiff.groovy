@@ -6,7 +6,7 @@ def call(lvVersion, lvBitness, accessToken) {
 	def repo = getComponentParts()['repo']
 
 	echo 'Running LabVIEW diff build between origin/master and this commit'
-	echo 'access token ${accessToken}'
+	echo accessToken
 
 	bat "python -u \"${stepsDir}\\labview_diff.py\" \"${operationsDir}\\\\\" \"${diffDir}\\\\\" ${lvVersion} ${lvBitness} --target=origin/master"
     
